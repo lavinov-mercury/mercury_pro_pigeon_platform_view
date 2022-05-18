@@ -14,6 +14,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		D22FFC792834C0AF008F23FA /* FLMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22FFC782834C0AF008F23FA /* FLMapView.swift */; };
+		D2998A4E2834DCDD0005530A /* MapControllerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = D2998A4D2834DCDD0005530A /* MapControllerProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,8 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D22FFC782834C0AF008F23FA /* FLMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLMapView.swift; sourceTree = "<group>"; };
+		D2998A4C2834DCDD0005530A /* MapControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapControllerProtocol.h; sourceTree = "<group>"; };
+		D2998A4D2834DCDD0005530A /* MapControllerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapControllerProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 		D22FFC7A2834CE75008F23FA /* Pigeons */ = {
 			isa = PBXGroup;
 			children = (
+				D2998A4C2834DCDD0005530A /* MapControllerProtocol.h */,
+				D2998A4D2834DCDD0005530A /* MapControllerProtocol.m */,
 			);
 			path = Pigeons;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				D2998A4E2834DCDD0005530A /* MapControllerProtocol.m in Sources */,
 				D22FFC792834C0AF008F23FA /* FLMapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
