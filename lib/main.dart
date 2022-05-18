@@ -37,7 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const MapView(),
+      body: const MapView(
+        initialCoordinate: LatLon(59.93, 30.36),
+      ),
     );
   }
 }

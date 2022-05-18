@@ -18,6 +18,10 @@ class FLMapViewFactory: NSObject, FlutterPlatformViewFactory {
         super.init()
     }
     
+    func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
+          return FlutterStandardMessageCodec.sharedInstance()
+    }
+    
     func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
         return FLMapView(frame: frame,
                          viewIdentifier: viewId,
@@ -27,7 +31,7 @@ class FLMapViewFactory: NSObject, FlutterPlatformViewFactory {
 }
 
 class FLMapView: NSObject, FlutterPlatformView {
-    private var _view: UIView
+    private var _view: MKMapView
 
     init(
         frame: CGRect,
@@ -37,6 +41,22 @@ class FLMapView: NSObject, FlutterPlatformView {
     ) {
         _view = MKMapView()
         super.init()
+        
+        if let args = args as? Dictionary<String, Any> {
+            if let coordinatesArg = args["coordinate"] as? Array<Double> {
+                let location = CLLocationCoordinate2D(
+                    latitude: coordinatesArg.first!,
+                    longitude: coordinatesArg.last!
+                )
+                
+                let region = MKCoordinateRegion( center: location,
+                                                 latitudinalMeters: CLLocationDistance(exactly: 15000)!,
+                                                 longitudinalMeters: CLLocationDistance(exactly: 15000)!)
+                
+                _view.setRegion(_view.regionThatFits(region), animated: false)
+            }
+            
+        }
     }
 
     func view() -> UIView {
