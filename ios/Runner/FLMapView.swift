@@ -86,7 +86,7 @@ extension FLMapView: MapsFlutterToPlatformApi {
     }
 
     func causeErrorMapId(_ mapId: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
-        error.pointee = FlutterError(code: "ERROR", message: "Successfully failed, mapId: \(mapId)", details: nil)
+        error.pointee = FlutterError(code: "ERROR", message: "Successfully failed, mapId: \(_viewId)", details: nil)
     }
 }
 
