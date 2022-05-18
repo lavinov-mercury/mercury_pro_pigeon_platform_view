@@ -9,13 +9,18 @@ import Foundation
 import Flutter
 import MapKit
 
-class FLMapViewFactory: NSObject, FlutterPlatformViewFactory {
+class FLMapViewFactory: NSObject, FlutterPlatformViewFactory, MapsFlutterToPlatformApi {
     var messenger: FlutterBinaryMessenger
+    
+    var viewsMap: NSMapTable<NSNumber, FLMapView>
     
     init(messenger: FlutterBinaryMessenger) {
         self.messenger = messenger
+        viewsMap = NSMapTable(keyOptions: .copyIn, valueOptions: .weakMemory)
         
         super.init()
+        
+        MapsFlutterToPlatformApiSetup(messenger, self)
     }
     
     func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
@@ -23,10 +28,24 @@ class FLMapViewFactory: NSObject, FlutterPlatformViewFactory {
     }
     
     func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        return FLMapView(frame: frame,
-                         viewIdentifier: viewId,
-                         arguments: args,
-                         binaryMessenger: messenger)
+        let platformView = FLMapView(frame: frame,
+                                     viewIdentifier: viewId,
+                                     arguments: args,
+                                     binaryMessenger: messenger)
+        
+        viewsMap.setObject(platformView, forKey: NSNumber(value: viewId))
+        
+        return platformView
+    }
+    
+    func moveMapId(_ mapId: NSNumber, latLon: PigeonLatLon, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+        guard let view = viewsMap.object(forKey: mapId) else { return }
+        view.moveMapId(mapId, latLon: latLon, error: error)
+    }
+    
+    func causeErrorMapId(_ mapId: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+        guard let view = viewsMap.object(forKey: mapId) else { return }
+        view.causeErrorMapId(mapId, error: error)
     }
 }
 
@@ -47,8 +66,6 @@ class FLMapView: NSObject, FlutterPlatformView {
         _sink = MapsPlatformToFlutterApi(binaryMessenger: messenger)
         
         super.init()
-        
-        MapsFlutterToPlatformApiSetup(messenger, self)
         
         _view.delegate = self
         

@@ -18,7 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Column(
+        children: const [
+          Expanded(child: MyHomePage(title: 'Flutter Demo Home Page')),
+          Expanded(child: MyHomePage(title: 'Flutter Demo Home Page')),
+        ],
+      ),
     );
   }
 }
