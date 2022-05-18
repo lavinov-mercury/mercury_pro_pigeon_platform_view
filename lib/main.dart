@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'map_view.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -35,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const Center(child: Text('Hello Mercury guests!')),
+      body: const MapView(),
     );
   }
 }
