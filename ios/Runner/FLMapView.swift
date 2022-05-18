@@ -63,3 +63,7 @@ class FLMapView: NSObject, FlutterPlatformView {
         return _view
     }
 }
+
+extension FLMapView: MapsFlutterToPlatformApi {
+    //
+}
