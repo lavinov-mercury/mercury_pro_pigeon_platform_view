@@ -95,7 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       return Text(
                         '${latLon.lat.toStringAsPrecision(5)} ; ${latLon.lon.toStringAsPrecision(5)}',
                         style: const TextStyle(
-                          color: Colors.white,
                           fontSize: 28,
                           fontWeight: FontWeight.w600,
                         ),
