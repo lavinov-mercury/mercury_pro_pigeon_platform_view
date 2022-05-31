@@ -38,14 +38,14 @@ class FLMapViewFactory: NSObject, FlutterPlatformViewFactory, MapsFlutterToPlatf
         return platformView
     }
     
-    func moveMapId(_ mapId: NSNumber, latLon: PigeonLatLon, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+    func moveMap(withId mapId: NSNumber, to latLon: PigeonLatLon, completion: @escaping (FlutterError?) -> Void) {
         guard let view = viewsMap.object(forKey: mapId) else { return }
-        view.moveMapId(mapId, latLon: latLon, error: error)
+        view.moveMap(withId: mapId, to: latLon, completion: completion)
     }
     
-    func causeErrorMapId(_ mapId: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+    func causeErrorOnMap(withId mapId: NSNumber, completion: @escaping (FlutterError?) -> Void) {
         guard let view = viewsMap.object(forKey: mapId) else { return }
-        view.causeErrorMapId(mapId, error: error)
+        view.causeErrorOnMap(withId: mapId, completion: completion)
     }
 }
 
@@ -92,7 +92,7 @@ class FLMapView: NSObject, FlutterPlatformView {
 }
 
 extension FLMapView: MapsFlutterToPlatformApi {
-    func moveMapId(_ mapId: NSNumber, latLon: PigeonLatLon, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+    func moveMap(withId mapId: NSNumber, to latLon: PigeonLatLon, completion: @escaping (FlutterError?) -> Void) {
         _view.setCenter(
             CLLocationCoordinate2D(
                 latitude: Double(truncating: latLon.lat),
@@ -100,10 +100,12 @@ extension FLMapView: MapsFlutterToPlatformApi {
             ),
             animated: true
         )
+        
+        completion(nil)
     }
-
-    func causeErrorMapId(_ mapId: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
-        error.pointee = FlutterError(code: "ERROR", message: "Successfully failed, mapId: \(_viewId)", details: nil)
+    
+    func causeErrorOnMap(withId mapId: NSNumber, completion: @escaping (FlutterError?) -> Void) {
+        completion(FlutterError(code: "ERROR", message: "Successfully failed, mapId: \(_viewId)", details: nil))
     }
 }
 

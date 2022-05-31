@@ -195,14 +195,14 @@ void MapsFlutterToPlatformApiSetup(id<FlutterBinaryMessenger> binaryMessenger, N
         binaryMessenger:binaryMessenger
         codec:MapsFlutterToPlatformApiGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(moveMapId:latLon:error:)], @"MapsFlutterToPlatformApi api (%@) doesn't respond to @selector(moveMapId:latLon:error:)", api);
+      NSCAssert([api respondsToSelector:@selector(moveMapWithId:to:completion:)], @"MapsFlutterToPlatformApi api (%@) doesn't respond to @selector(moveMapWithId:to:completion:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSNumber *arg_mapId = GetNullableObjectAtIndex(args, 0);
         PigeonLatLon *arg_latLon = GetNullableObjectAtIndex(args, 1);
-        FlutterError *error;
-        [api moveMapId:arg_mapId latLon:arg_latLon error:&error];
-        callback(wrapResult(nil, error));
+        [api moveMapWithId:arg_mapId to:arg_latLon completion:^(FlutterError *_Nullable error) {
+          callback(wrapResult(nil, error));
+        }];
       }];
     }
     else {
@@ -216,13 +216,13 @@ void MapsFlutterToPlatformApiSetup(id<FlutterBinaryMessenger> binaryMessenger, N
         binaryMessenger:binaryMessenger
         codec:MapsFlutterToPlatformApiGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(causeErrorMapId:error:)], @"MapsFlutterToPlatformApi api (%@) doesn't respond to @selector(causeErrorMapId:error:)", api);
+      NSCAssert([api respondsToSelector:@selector(causeErrorOnMapWithId:completion:)], @"MapsFlutterToPlatformApi api (%@) doesn't respond to @selector(causeErrorOnMapWithId:completion:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSNumber *arg_mapId = GetNullableObjectAtIndex(args, 0);
-        FlutterError *error;
-        [api causeErrorMapId:arg_mapId error:&error];
-        callback(wrapResult(nil, error));
+        [api causeErrorOnMapWithId:arg_mapId completion:^(FlutterError *_Nullable error) {
+          callback(wrapResult(nil, error));
+        }];
       }];
     }
     else {

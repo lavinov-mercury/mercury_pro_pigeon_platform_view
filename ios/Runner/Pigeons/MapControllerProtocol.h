@@ -30,8 +30,8 @@ NSObject<FlutterMessageCodec> *MapsPlatformToFlutterApiGetCodec(void);
 NSObject<FlutterMessageCodec> *MapsFlutterToPlatformApiGetCodec(void);
 
 @protocol MapsFlutterToPlatformApi
-- (void)moveMapId:(NSNumber *)mapId latLon:(PigeonLatLon *)latLon error:(FlutterError *_Nullable *_Nonnull)error;
-- (void)causeErrorMapId:(NSNumber *)mapId error:(FlutterError *_Nullable *_Nonnull)error;
+- (void)moveMapWithId:(NSNumber *)mapId to:(PigeonLatLon *)latLon completion:(void(^)(FlutterError *_Nullable))completion;
+- (void)causeErrorOnMapWithId:(NSNumber *)mapId completion:(void(^)(FlutterError *_Nullable))completion;
 @end
 
 extern void MapsFlutterToPlatformApiSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<MapsFlutterToPlatformApi> *_Nullable api);

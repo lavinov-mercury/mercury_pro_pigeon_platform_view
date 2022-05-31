@@ -21,6 +21,11 @@ abstract class MapsPlatformToFlutterApi {
 
 @HostApi()
 abstract class MapsFlutterToPlatformApi {
+  @async
+  @ObjCSelector('moveMapWithId:to:')
   void move(int mapId, PigeonLatLon latLon);
+
+  @async
+  @ObjCSelector('causeErrorOnMapWithId:')
   void causeError(int mapId);
 }
